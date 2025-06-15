@@ -1,0 +1,27 @@
+name,email
+Valid name 1,valid1@test.com
+Valid name 2,valid2@test.com
+Valid name 3,valid3@test.com
+Valid name 4,valid4@test.com
+Valid name 5,valid5@test.com
+Valid name 6,valid6@test.com
+Valid name 7,valid7@test.com
+Valid name 8,valid8@test.com
+Valid name 9,valid9@test.com
+Invalid 1,invalidEmail1
+Invalid 2,invalidEmail2
+Invalid 3,invalidEmail3
+Invalid 4,invalidEmail4
+Invalid 5,invalidEmail5
+Invalid 6,invalidEmail6
+Invalid 7,invalidEmail7
+Invalid 8,invalidEmail8
+Invalid 9,invalidEmail9
+Invalid 10,invalidEmail10
+Invalid 11,invalidEmail11
+Invalid 12,invalidEmail12
+Valid name 10,valid10@test.com
+Valid name 11,valid11@test.com
+Valid name 12,valid12@test.com
+Valid name 13,valid13@test.com
+Valid name 14,valid14@test.com

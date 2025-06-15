@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node ./app.js",
     "test": "jest"
   },
   "keywords": [],
@@ -10,8 +11,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "csv-parser": "^3.2.0",
     "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
     "jest": "^30.0.0",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "p-limit": "3.1.0"
   }
 }

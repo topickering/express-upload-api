@@ -10,3 +10,6 @@ node_modules/
 # Jest
 jest-reports
 junit.xml
+
+# multer files
+uploads/
