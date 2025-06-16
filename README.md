@@ -4,7 +4,8 @@ A file upload API using Express.js
 
 ## Endpoints
 
-`/upload` - handles POST requests uploading a .csv file in the following format:
+`/upload` 
+- handles POST requests uploading a .csv file in the following format:
 
 ```
 name,email
@@ -13,11 +14,13 @@ Example name,example@email.com
 
 An example.csv file can be found in [the resources folder](./resources/)
 
-Uploaded files are processed to confirm the validity of emails provided.
+POST requests initiate async processing of the parsed csv records.
 
-The response includes an uploadId.
+`/upload/{uploadId}`
+- handles GET requests and, if processing is complete, returns data regarding processing.
 
-`upload/{uploadId}` - receives GET requests and will respond with the progress of an upload's processing.
+`status/{uploadId}` 
+- handles GET requests and will respond with the progress of an upload's processing.
 
 ## Running locally
 
@@ -33,10 +36,10 @@ Install dependencies by running `npm install`
 - express-rate-limit (to limit requests from one source)
 - Multer (for handling uploaded files)
 - csv-parser
-- pLimit (to limit concurrency on function calls)
+- p-queue (to limit concurrent requests on email validation call)
 - nodemon (to allow hot reloads when developing)
 
-Before running the application create a folder called `/uploads` - multer is configured to upload files to this location. This can be configured in [`/routes/uploadRoutes.js`](./routes/uploadRoutes.js).
+Before running the application create a folder called `/uploads` at the root of the application - multer is configured to upload files to this location. This can be configured in [`/routes/uploadRoutes.js`](./routes/uploadRoutes.js).
 
 Run the application from the command line with `npm run start`
 
@@ -53,15 +56,20 @@ In addition the application can be tested using cURL or Postman
 Start running the server `npm run start`
 
 For cURL, enter the following in the command line:
-
 ```
 curl -X POST -F "file=@path-to-application/express-upload-api/resources/testData.csv;type=text/csv" http://localhost:3000/upload
 ```
 
-The response will include an uploadId. This can be used to check the progress of the file processing.
+The response will include an uploadId. This can be used to check the progress of the file processing (to simulate manually either use a large csv file or increase the timeout in the [mock email validator](`/lib/mock-validate-email.js`)):
+```
+cURL -X GET http://localhost:3000/status/{uploadId}
+```
 
+To see upload details once processing is complete:
 ```
 cURL -X GET http://localhost:3000/upload/{uploadId}
 ```
+
+
 
 If using Postman, start the server and make a POST request, making sure to select the form-data option then set the key as 'file' (selecting 'File' not 'Text' from the drop down menu) and uploading a .csv file as the Value.
