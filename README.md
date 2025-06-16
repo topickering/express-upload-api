@@ -19,6 +19,8 @@ Install dependencies by running `npm install`
 - pLimit (to limit concurrency on function calls)
 - nodemon (to allow hot reloads when developing)
 
+Before running the application create a folder called `/uploads` - multer is configured to upload files to this location. This can be configured in `/routes/uploadRoutes.js`.
+
 Run the application from the command line with `npm run start`
 
 ## Testing
