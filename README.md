@@ -11,7 +11,7 @@ name,email
 Example name,example@email.com
 ```
 
-An example.csv file can be found in [the resources folder](./resources/testData.csv.)
+An example.csv file can be found in [the resources folder](./resources/)
 
 Uploaded files are processed to confirm the validity of emails provided.
 
