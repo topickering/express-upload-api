@@ -2,6 +2,23 @@
 
 A file upload API using Express.js
 
+## Endpoints
+
+`/upload` - handles POST requests uploading a .csv file in the following format:
+
+```
+name,email
+Example name, example@email.com
+```
+
+An example.csv file can be found in [the resources folder](./resources/testData.csv.)
+
+Uploaded files are processed to confirm the validity of emails provided.
+
+The response includes an uploadId.
+
+`upload/{uploadId}` - receives GET requests and will respond with the progress of an upload's processing.
+
 ## Running locally
 
 __Requirements__
@@ -19,7 +36,7 @@ Install dependencies by running `npm install`
 - pLimit (to limit concurrency on function calls)
 - nodemon (to allow hot reloads when developing)
 
-Before running the application create a folder called `/uploads` - multer is configured to upload files to this location. This can be configured in `/routes/uploadRoutes.js`.
+Before running the application create a folder called `/uploads` - multer is configured to upload files to this location. This can be configured in [`/routes/uploadRoutes.js`](./routes/uploadRoutes.js).
 
 Run the application from the command line with `npm run start`
 

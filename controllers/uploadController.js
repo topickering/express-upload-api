@@ -17,6 +17,8 @@ async function postUpload(req, res) {
         return res.status(400).send('No file uploaded');
     }
 
+    // NOTE - Multer creates a random filename.  As an extension the Multer implementation could
+    // be configured, or a different id could be generate / used here.
     const uploadId = req.file.filename;
 
     res.setHeader('Content-Type', 'application/json');
@@ -47,7 +49,6 @@ async function postUpload(req, res) {
                 progressedCounter ++;
                 const progress = (Math.floor(progressedCounter / totalRecords * 100));
                 uploadStatusMap.set(uploadId, progress);
-                console.log(uploadStatusMap);
                 if(!validationResult.valid) {
                     details.push({
                         ...result,
