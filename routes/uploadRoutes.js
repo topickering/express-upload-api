@@ -1,5 +1,5 @@
 import express from 'express';
-import { getStatus, getUpload, postUpload } from '../controllers/uploadController.js';
+import { getUpload, postUpload } from '../controllers/uploadController.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -21,8 +21,7 @@ router.get('/', (req, res) => {
     res.send("Post a csv file with name and email details to '/upload'");
 });
 
-router.get('/upload', getUpload)
-router.post('/upload', upload.single('file'), postUpload)
-router.get('/upload/:id', getStatus)
+router.post('/', upload.single('file'), postUpload)
+router.get('/:id', getUpload)
 
 export default router;

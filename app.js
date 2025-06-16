@@ -1,5 +1,6 @@
 import express from 'express';
 import uploadRoutes from './routes/uploadRoutes.js';
+import statusRoutes from './routes/statusRoutes.js'
 import multer from 'multer';
 import rateLimit from 'express-rate-limit';
 
@@ -12,7 +13,13 @@ const uploadLimiter = rateLimit({
 
 app.use(express.json());
 app.use(uploadLimiter);
-app.use('/', uploadRoutes);
+
+app.get('/', (req, res) => {
+    res.send("Post a csv file with name and email details to '/upload'");
+});
+
+app.use('/upload', uploadRoutes);
+app.use('/status', statusRoutes);
 
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {
