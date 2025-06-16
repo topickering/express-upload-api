@@ -2,10 +2,13 @@
   "name": "express-upload-api",
   "version": "1.0.0",
   "type": "module",
-  "main": "app.js",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20.0.0 <21.0.0"
+  },
   "scripts": {
-    "start": "node ./app.js",
-    "test": "jest"
+    "start": "nodemon ./server.js",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,7 @@
     "p-limit": "^6.2.0"
   },
   "devDependencies": {
-    "jest": "^30.0.0"
+    "nodemon": "^3.1.10",
+    "vitest": "^3.2.3"
   }
 }

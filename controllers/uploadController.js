@@ -1,12 +1,14 @@
 import fs from 'fs';
 import csv from 'csv-parser';
 import pLimit from 'p-limit';
-import mockValidateEmail from './mock-validate-email.js';
+import mockValidateEmail from '../lib/mock-validate-email.js';
 
 const limit = pLimit(5);
 
+const uploadStatusMap = new Map();
+
 async function getUpload(req, res) {
-    res.send('POST a csv file to this endpoint, for example with Postman or cURL')
+    res.status(200).send('POST a csv file to this endpoint, for example with Postman or cURL')
 }
 
 async function postUpload(req, res) {
@@ -15,12 +17,16 @@ async function postUpload(req, res) {
         return res.status(400).send('No file uploaded');
     }
 
+    const uploadId = req.file.filename;
+
     res.setHeader('Content-Type', 'application/json');
 
     res.write(JSON.stringify({
-        uploadId: '123',
+        uploadId,
         message: 'File uploaded successfully. Processing started.'
     }))
+
+    uploadStatusMap.set(uploadId, 0);
 
     const results = []
 
@@ -32,11 +38,16 @@ async function postUpload(req, res) {
         })
         .on('end', async () => {
             const totalRecords = results.length;
+            var progressedCounter = 0;
 
             const details = [];
 
             await Promise.all(results.map((result) => limit(async () => {
-                const validationResult = await mockValidateEmail(result.email)
+                const validationResult = await mockValidateEmail(result.email);
+                progressedCounter ++;
+                const progress = (Math.floor(progressedCounter / totalRecords * 100));
+                uploadStatusMap.set(uploadId, progress);
+                console.log(uploadStatusMap);
                 if(!validationResult.valid) {
                     details.push({
                         ...result,
@@ -65,4 +76,20 @@ async function postUpload(req, res) {
   })    
 }
 
-export { getUpload, postUpload };
+function getStatus(req, res) {
+    const { id } = req.params;
+
+    if(!id) return res.status(400).send('Must provide an id');
+
+    if(!uploadStatusMap.has(id)) return res.status(400).send('Invalid upload id');
+
+    const responseJson = {
+        uploadId: id,
+        progress: uploadStatusMap.get(id)
+    };
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send(responseJson);
+} 
+
+export { getUpload, postUpload, getStatus };

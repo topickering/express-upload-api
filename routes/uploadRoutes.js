@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUpload, postUpload } from './controller.js';
+import { getStatus, getUpload, postUpload } from '../controllers/uploadController.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -23,5 +23,6 @@ router.get('/', (req, res) => {
 
 router.get('/upload', getUpload)
 router.post('/upload', upload.single('file'), postUpload)
+router.get('/upload/:id', getStatus)
 
 export default router;

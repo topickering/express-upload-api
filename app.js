@@ -1,10 +1,10 @@
 import express from 'express';
-import uploadRoutes from './upload.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 import multer from 'multer';
 import rateLimit from 'express-rate-limit';
 
 const app = express();
-const port = 3000; 
+
 const uploadLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 10
@@ -21,6 +21,4 @@ app.use((error, req, res, next) => {
   res.status(500).send(error.message)
 })
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+export default app;

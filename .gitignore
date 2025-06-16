@@ -12,4 +12,4 @@ jest-reports
 junit.xml
 
 # multer files
-uploads/
+uploads/*
