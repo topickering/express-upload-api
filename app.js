@@ -1,10 +1,10 @@
-const express = require('express');
-const routes = require('./upload')
-const multer = require('multer')
+import express from 'express';
+import uploadRoutes from './upload.js';
+import multer from 'multer';
+import rateLimit from 'express-rate-limit';
+
 const app = express();
 const port = 3000; 
-
-const rateLimit = require('express-rate-limit');
 const uploadLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 10
@@ -12,7 +12,7 @@ const uploadLimiter = rateLimit({
 
 app.use(express.json());
 app.use(uploadLimiter);
-app.use('/', routes);
+app.use('/', uploadRoutes);
 
 app.use((error, req, res, next) => {
   if (error instanceof multer.MulterError) {

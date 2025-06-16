@@ -10,4 +10,4 @@ const mockValidateEmail = async (email) => {
     });
 };
 
-module.exports = mockValidateEmail;
+export default mockValidateEmail;

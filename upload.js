@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { getUpload, postUpload } = require('./controller')
-const multer = require('multer');
-const path = require('path');
+import express from 'express';
+import { getUpload, postUpload } from './controller.js';
+import multer from 'multer';
+import path from 'path';
+
+const router = express.Router({ mergeParams: true });
 
 const csvFileFilter = (req, file, cb) => {
         if (file.mimetype !== 'text/csv' || path.extname(file.originalname).toLowerCase() !== '.csv') {
@@ -23,4 +24,4 @@ router.get('/', (req, res) => {
 router.get('/upload', getUpload)
 router.post('/upload', upload.single('file'), postUpload)
 
-module.exports = router
+export default router;

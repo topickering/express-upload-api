@@ -1,7 +1,7 @@
-const fs = require('fs');
-const csv = require('csv-parser');
-const pLimit = require('p-limit');
-const mockValidateEmail = require('./mock-validate-email');
+import fs from 'fs';
+import csv from 'csv-parser';
+import pLimit from 'p-limit';
+import mockValidateEmail from './mock-validate-email.js';
 
 const limit = pLimit(5);
 
@@ -47,7 +47,7 @@ async function postUpload(req, res) {
 
             const failedRecords = details.length;
 
-            responseJson = {
+            const responseJson = {
                 totalRecords,
                 processedRecords: totalRecords - failedRecords,
                 failedRecords,
@@ -65,7 +65,4 @@ async function postUpload(req, res) {
   })    
 }
 
-module.exports = {
-    getUpload,
-    postUpload
-}
+export { getUpload, postUpload };
