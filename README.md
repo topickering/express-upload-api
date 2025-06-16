@@ -8,7 +8,7 @@ A file upload API using Express.js
 
 ```
 name,email
-Example name, example@email.com
+Example name,example@email.com
 ```
 
 An example.csv file can be found in [the resources folder](./resources/testData.csv.)
