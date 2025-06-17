@@ -13,3 +13,5 @@ junit.xml
 
 # multer files
 uploads/*
+
+.DS_Store

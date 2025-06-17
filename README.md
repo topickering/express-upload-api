@@ -43,6 +43,10 @@ Before running the application create a folder called `/uploads` at the root of 
 
 Run the application from the command line with `npm run start`
 
+### Concurrency
+
+The application uses p-queue to manage concurrent calls to the mock email validation service.  This sets a concurrency limit across the application.  If a limit per upload / request were preferred then an alternative concurrency manager such as p-limit could be used.
+
 ## Testing
 
 The project uses Vitest for testing.
@@ -70,6 +74,5 @@ To see upload details once processing is complete:
 cURL -X GET http://localhost:3000/upload/{uploadId}
 ```
 
-
-
 If using Postman, start the server and make a POST request, making sure to select the form-data option then set the key as 'file' (selecting 'File' not 'Text' from the drop down menu) and uploading a .csv file as the Value.
+
