@@ -12,13 +12,13 @@ const uploadLimiter = rateLimit({
 });
 
 app.use(express.json());
-app.use(uploadLimiter);
 
 app.get('/', (req, res) => {
     res.send("Post a csv file with name and email details to '/upload'");
 });
 
-app.use('/upload', uploadRoutes);
+// Rate limiter applied to both POST and GET requests on /upload routes. Can be configured further as required
+app.use('/upload', uploadLimiter, uploadRoutes);
 app.use('/status', statusRoutes);
 
 app.use((error, req, res, next) => {
