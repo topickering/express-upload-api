@@ -32,7 +32,7 @@ __Requirements__
 
 __Dependencies__
 
-Install dependencies by running `npm install`
+Clone the repository and install dependencies by running `npm install`
 
 - Express.js
 - express-rate-limit (to limit requests from one source)

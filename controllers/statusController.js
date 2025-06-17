@@ -14,7 +14,7 @@ function getStatus(req, res) {
     };
 
     res.setHeader('Content-Type', 'application/json');
-    res.send(responseJson);
+    res.status(200).send(responseJson);
 } 
 
 export { getStatus };
