@@ -6,7 +6,9 @@ function getStatus(req, res) {
 
     if(!id) return res.status(400).send('Must provide an id');
 
-    const progress = getProgressById(id)
+    const progress = getProgressById(id);
+
+    if (!progress) return res.status(404).send(`No upload with upload id: ${id}`);
 
     const responseJson = {
         uploadId: id,

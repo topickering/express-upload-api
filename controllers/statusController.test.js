@@ -38,6 +38,25 @@ describe('status controller', () => {
             expect(res.send).toHaveBeenCalledWith('Must provide an id')
         });
 
+        it('sends a 404 if no record matches id', () => {
+            let req = {
+                params: {
+                    id: 'testId'
+                }
+            };
+            let res = mockRes();
+
+            res.status.mockImplementation(() => res);
+            res.setHeader.mockImplementation(() => res);
+            getProgressById.mockImplementation(() => null);
+
+            getStatus(req, res);
+
+            expect(getProgressById).toHaveBeenCalledWith('testId');
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.send).toHaveBeenCalledWith('No upload with upload id: testId')
+        });
+
         it('sends a 200 and process status', () => {
             let req = {
                 params: {

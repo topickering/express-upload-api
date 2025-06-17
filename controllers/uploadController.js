@@ -34,7 +34,12 @@ function getUpload(req, res) {
 
     const progress = getProgressById(id);
 
-    if(progress != 100) return res.status(400).send("Upload still being processed. Visit '/status/{uploadId}");
+    if (!progress) {
+        return res.status(404).send(`No upload with upload id: ${id}`)
+    } else if (progress != 100) {
+        // status code 102 is deprecated
+        return res.status(400).send("Upload still being processed. Visit '/status/{uploadId}");
+    }
 
     const { results, processedRecords, failedRecords, details } = getUploadDataById(id);
 

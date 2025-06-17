@@ -88,7 +88,7 @@ describe('upload controller', () => {
     })
 
     describe('getUpload', () => {
-        it('sends a 400 if no id is present', async () => {
+        it('sends a 400 if no id is present', () => {
             let req = {
                 params: {}
             };
@@ -96,13 +96,13 @@ describe('upload controller', () => {
 
             res.status.mockImplementation(() => res);
 
-            await getUpload(req, res);
+            getUpload(req, res);
 
             expect(res.status).toHaveBeenCalledWith(400);
             expect(res.send).toHaveBeenCalledWith('Must provide an id')
         });
 
-        it('sends a 400 if the upload is still being processed', async () => {
+        it('sends a 400 if the upload is still being processed', () => {
             let req = {
                 params: {
                     id: 'testId'
@@ -113,14 +113,33 @@ describe('upload controller', () => {
             res.status.mockImplementation(() => res);
             getProgressById.mockImplementation(() => 50);
 
-            await getUpload(req, res);
+            getUpload(req, res);
 
             expect(getProgressById).toHaveBeenCalledWith('testId');
             expect(res.status).toHaveBeenCalledWith(400);
             expect(res.send).toHaveBeenCalledWith("Upload still being processed. Visit '/status/{uploadId}")
         });
 
-        it('sends a 200 and upload processed data if processing complete', async () => {
+        it('sends a 404 if no record matches id', () => {
+            let req = {
+                params: {
+                    id: 'testId'
+                }
+            };
+            let res = mockRes();
+
+            res.status.mockImplementation(() => res);
+            res.setHeader.mockImplementation(() => res);
+            getProgressById.mockImplementation(() => null);
+
+            getUpload(req, res);
+
+            expect(getProgressById).toHaveBeenCalledWith('testId');
+            expect(res.status).toHaveBeenCalledWith(404);
+            expect(res.send).toHaveBeenCalledWith('No upload with upload id: testId')
+        });
+
+        it('sends a 200 and upload processed data if processing complete', () => {
             let req = {
                 params: {
                     id: 'testId'
@@ -139,7 +158,7 @@ describe('upload controller', () => {
             getProgressById.mockImplementation(() => 100);
             getUploadDataById.mockImplementation(() => uploadData)
 
-            await getUpload(req, res);
+            getUpload(req, res);
 
             expect(getProgressById).toHaveBeenCalledWith('testId');
             expect(res.status).toHaveBeenCalledWith(200);
