@@ -1,6 +1,8 @@
 # Express Upload API
 
-A file upload API using Express.js
+A file upload API using Express.js.
+
+The application can handle POST requests uploading a .csv file.  The file is then parsed and processed using a mocked external call.  The status of the processing can be checked.
 
 ## Endpoints
 
@@ -38,6 +40,7 @@ Install dependencies by running `npm install`
 - csv-parser
 - p-queue (to limit concurrent requests on email validation call)
 - nodemon (to allow hot reloads when developing)
+- winston (for logging)
 
 Before running the application create a folder called `/uploads` at the root of the application - multer is configured to upload files to this location. This can be configured in [`/routes/uploadRoutes.js`](./routes/uploadRoutes.js).
 
@@ -46,6 +49,14 @@ Run the application from the command line with `npm run start`
 ### Concurrency
 
 The application uses p-queue to manage concurrent calls to the mock email validation service.  This sets a concurrency limit across the application.  If a limit per upload / request were preferred then an alternative concurrency manager such as p-limit could be used.
+
+### Rate limit
+
+Calls to the `/upload` endpoints are limited to 10 calls per minute per IP address.
+
+### Upload
+
+The application uses Multer to manage uploads.  The destination, naming of uploads and file size limits can be configured.
 
 ## Testing
 
