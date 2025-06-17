@@ -1,21 +1,28 @@
 import fs from 'fs';
 import csv from 'csv-parser';
 import { addToUploadDB, getProgressById, getUploadDataById } from '../lib/uploadDB.js';
+import logger from '../lib/logger.js';
 
 async function postUpload(req, res) {    
-    if(!req.file) {
+    const  { file } = req
+    
+    if(!file) {
         return res.status(400).send('No file uploaded');
     }
+   
+    const results = [];
 
-    const results = []
-
+    logger.info('Commencing parsing of file ' + file.filename);
+    
     const stream = fs
-        .createReadStream(req.file.path)
+        .createReadStream(file.path)
         .pipe(csv())
         .on('data', (data) => {
             results.push(data)
         })
         .on('end', () => {
+
+            logger.info('Completed parsing of file ' + file.filename);
             const uploadId = addToUploadDB(results);
 
             res.setHeader('Content-Type', 'application/json')

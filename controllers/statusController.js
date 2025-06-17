@@ -10,7 +10,7 @@ function getStatus(req, res) {
 
     const responseJson = {
         uploadId: id,
-        progress
+        progress: progress + '%'
     };
 
     res.setHeader('Content-Type', 'application/json');
