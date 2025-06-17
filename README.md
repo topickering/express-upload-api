@@ -41,6 +41,7 @@ Clone the repository and install dependencies by running `npm install`
 - p-queue (to limit concurrent requests on email validation call)
 - nodemon (to allow hot reloads when developing)
 - winston (for logging)
+- supertest (for integration tests)
 
 Run the application from the command line with `npm run start`
 
@@ -60,7 +61,13 @@ The application uses Multer to manage uploads.  The destination, naming of uploa
 
 The project uses Vitest for testing.
 
-Run tests from the command line with `npm run test`
+Run unit tests from the command line with `npm run test`
+
+### Integration tests
+
+Integration tests use Supertest and are found in [`/routes/routes.spec.js`](./routes/routes.spec.js). Test uploads are saved in the [`/routes/uploads`](./routes/uploads) directory and deleted following the tests being run.  In production a separate test configuration might be used, with the destination for uploads being an environment variable.  
+
+These tests can be run in the command line by calling `npm run test:integration`.
 
 ### Manual testing
 
