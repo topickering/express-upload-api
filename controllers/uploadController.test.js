@@ -20,16 +20,6 @@ describe('upload controller', () => {
         vi.resetAllMocks();
     })
     
-    // describe('getUpload', () => {
-    //     it('sends something back', async () => {
-    //         let req = {};
-    //         let res = mockRes();
-    //         await getUpload(req, res);
-
-    //         expect(res.status).toHaveBeenCalledWith(200);
-    //     })
-    // })
-
     describe('postUpload', () => {
         it('sends a 400 if no file is posted', async () => {
             let req = {};
