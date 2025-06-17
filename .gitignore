@@ -11,7 +11,4 @@ node_modules/
 jest-reports
 junit.xml
 
-# multer files
-uploads/*
-
 .DS_Store

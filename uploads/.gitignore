@@ -1,0 +1,4 @@
+# Ignore every file in this folder, which is used for Multer uploads
+*
+# Except this one
+!.gitignore

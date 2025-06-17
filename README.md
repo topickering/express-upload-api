@@ -42,8 +42,6 @@ Clone the repository and install dependencies by running `npm install`
 - nodemon (to allow hot reloads when developing)
 - winston (for logging)
 
-Before running the application create a folder called `/uploads` at the root of the application - multer is configured to upload files to this location. This can be configured in [`/routes/uploadRoutes.js`](./routes/uploadRoutes.js).
-
 Run the application from the command line with `npm run start`
 
 ### Concurrency
@@ -56,7 +54,7 @@ Calls to the `/upload` endpoints are limited to 10 calls per minute per IP addre
 
 ### Upload
 
-The application uses Multer to manage uploads.  The destination, naming of uploads and file size limits can be configured.
+The application uses Multer to manage uploads.  The destination, naming of uploads and file size limits can be configured in [`/routes/uploadRoutes.js`](./routes/uploadRoutes.js).  Multer is currently configured to upload files to the `/uploads` directory.
 
 ## Testing
 
